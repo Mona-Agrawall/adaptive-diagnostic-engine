@@ -13,7 +13,7 @@ An AI-driven 1-Dimension Adaptive Testing system for GRE preparation. The system
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/adaptive-diagnostic-engine.git
+git clone https://github.com/Mona-Agrawall/adaptive-diagnostic-engine.git
 cd adaptive-diagnostic-engine
 ```
 
@@ -25,7 +25,7 @@ venv\Scripts\activate  # Windows
 
 ### 3. Install dependencies
 ```bash
-pip install fastapi uvicorn pymongo python-dotenv groq
+pip install fastapi uvicorn pymongo python-dotenv groq pydantic
 ```
 
 ### 4. Configure environment variables
