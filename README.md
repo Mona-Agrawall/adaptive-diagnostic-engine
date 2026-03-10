@@ -9,11 +9,18 @@ An AI-driven 1-Dimension Adaptive Testing system for GRE preparation. The system
 - **Adaptive Algorithm:** IRT-inspired 1D ability estimation
 - **AI Integration:** Groq API (LLaMA 3.3 70B)
 
+## System Flow
+1. User starts a test session
+2. Backend estimates ability score
+3. System selects next question closest to ability
+4. Ability score updates after each response
+5. After 10 questions an LLM generates a study plan
+
 ## Setup Instructions
 
 ### 1. Clone the repository
 ```bash
-git clone https://github.com/YOUR_USERNAME/adaptive-diagnostic-engine.git
+git clone https://github.com/Mona-Agrawall/adaptive-diagnostic-engine.git
 cd adaptive-diagnostic-engine
 ```
 
@@ -25,7 +32,7 @@ venv\Scripts\activate  # Windows
 
 ### 3. Install dependencies
 ```bash
-pip install fastapi uvicorn pymongo python-dotenv groq
+pip install fastapi uvicorn pymongo python-dotenv groq pydantic
 ```
 
 ### 4. Configure environment variables
@@ -85,17 +92,4 @@ The system uses a **1D IRT-inspired adaptive algorithm**:
 Once a session is completed, the student's performance data (ability score, accuracy, topics missed) is sent to **Groq's LLaMA 3.3 70B model** with a structured prompt. The LLM returns a 3-step personalized study plan targeting the student's specific weak areas.
 
 ---
-
-## AI Log
-
-**Tools used:** Claude (claude.ai) for step-by-step guidance throughout the project.
-
-**What AI helped with:**
-- Generating the full project structure and all code files
-- Debugging MongoDB aggregation pipeline for adaptive question selection
-- Switching from deprecated `google-generativeai` to `groq` when Gemini quota was exhausted
-- Writing the IRT-inspired ability update formula
-
-**What AI couldn't solve:**
-- Gemini free tier quota issues required manual API key management and switching providers entirely
-- Model deprecation (llama3-8b-8192) required checking Groq's latest supported models
+## Made by - Mona Agrawal
