@@ -9,6 +9,13 @@ An AI-driven 1-Dimension Adaptive Testing system for GRE preparation. The system
 - **Adaptive Algorithm:** IRT-inspired 1D ability estimation
 - **AI Integration:** Groq API (LLaMA 3.3 70B)
 
+## System Flow
+1. User starts a test session
+2. Backend estimates ability score
+3. System selects next question closest to ability
+4. Ability score updates after each response
+5. After 10 questions an LLM generates a study plan
+
 ## Setup Instructions
 
 ### 1. Clone the repository
