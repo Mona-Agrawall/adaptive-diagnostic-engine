@@ -92,17 +92,4 @@ The system uses a **1D IRT-inspired adaptive algorithm**:
 Once a session is completed, the student's performance data (ability score, accuracy, topics missed) is sent to **Groq's LLaMA 3.3 70B model** with a structured prompt. The LLM returns a 3-step personalized study plan targeting the student's specific weak areas.
 
 ---
-
-## AI Log
-
-**Tools used:** Claude (claude.ai) for step-by-step guidance throughout the project.
-
-**What AI helped with:**
-- Generating the full project structure and all code files
-- Debugging MongoDB aggregation pipeline for adaptive question selection
-- Switching from deprecated `google-generativeai` to `groq` when Gemini quota was exhausted
-- Writing the IRT-inspired ability update formula
-
-**What AI couldn't solve:**
-- Gemini free tier quota issues required manual API key management and switching providers entirely
-- Model deprecation (llama3-8b-8192) required checking Groq's latest supported models
+## Made by - Mona Agrawal
