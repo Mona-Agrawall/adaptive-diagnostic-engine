@@ -1,0 +1,25 @@
+# Render Blueprint: one Docker web service that serves the API and the built frontend.
+# Create it from the Render dashboard with New > Blueprint and select this repository.
+services:
+  - type: web
+    name: adaptive-diagnostic-engine
+    runtime: docker
+    plan: free
+    region: singapore
+    branch: main
+    autoDeploy: true
+    healthCheckPath: /api/health
+    envVars:
+      # Secrets: Render asks for these when the Blueprint is created. Never commit them.
+      - key: MONGODB_URI
+        sync: false
+      - key: GROQ_API_KEY
+        sync: false
+      - key: DB_NAME
+        value: adaptive_diagnostic
+      # Idempotent upsert of the question bank on every start; never deletes data.
+      - key: SEED_ON_STARTUP
+        value: "true"
+      # Render's proxy is the only way in, so trust it for the client address used by rate limits.
+      - key: FORWARDED_ALLOW_IPS
+        value: "*"

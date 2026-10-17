@@ -388,7 +388,21 @@ AI output is stored separately from responses and scores and is never used for g
 
 ## Deployment
 
-The Docker image is self-contained: it builds the frontend and serves it with the API on port 8000.
+### Render (free tier)
+
+The repository includes a Render Blueprint, `render.yaml`, that deploys the Docker image as a single web service and redeploys on every push to `main`.
+
+1. In MongoDB Atlas, open Network Access and allow `0.0.0.0/0`. Render's free tier has no fixed outbound IP addresses, so the database user's password is what protects the cluster.
+2. In the Render dashboard, choose New, then Blueprint, connect your GitHub account, and select this repository.
+3. When prompted, enter `MONGODB_URI` and, optionally, `GROQ_API_KEY`. Render stores them as secrets.
+4. Apply the Blueprint. The first build takes a few minutes. On start, the app seeds the question bank into the `adaptive_diagnostic` database.
+5. Open `https://<service-name>.onrender.com/api/health` and confirm that `database.status` is `up`.
+
+Free instances sleep after 15 minutes without traffic, so the first request after a pause can take about a minute.
+
+### Any container platform
+
+The Docker image is self-contained: it builds the frontend and serves it with the API on port 8000, or on `PORT` when the platform sets it.
 
 ```bash
 docker build -t adaptive-diagnostic-engine .
@@ -400,7 +414,7 @@ docker run -p 8000:8000 \
   adaptive-diagnostic-engine
 ```
 
-This works on any container platform, such as Render, Railway, Fly.io, Google Cloud Run, or Azure Container Apps. Point `MONGODB_URI` at a managed MongoDB such as Atlas and allow the platform's egress addresses in the Atlas network access list. Run a single replica, or move rate limiting to the proxy layer. The image's `HEALTHCHECK` and the `/api/health` endpoint can serve as the platform health check.
+This works on any container platform, such as Render, Railway, Fly.io, Google Cloud Run, or Azure Container Apps. Point `MONGODB_URI` at a managed MongoDB such as Atlas and allow the platform's egress addresses in the Atlas network access list. Run a single replica, or move rate limiting to the proxy layer. Behind a platform proxy, set `FORWARDED_ALLOW_IPS` so rate limits see real client addresses rather than the proxy's. The image's `HEALTHCHECK` and the `/api/health` endpoint can serve as the platform health check.
 
 ## Troubleshooting
 
