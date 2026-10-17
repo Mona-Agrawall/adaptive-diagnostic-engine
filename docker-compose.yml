@@ -1,0 +1,31 @@
+# Local, self-contained stack: MongoDB plus the app (API and built frontend) on port 8000.
+# Optional: put GROQ_API_KEY in a .env file next to this file to enable AI study plans.
+services:
+  mongo:
+    image: mongo:8.0
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      mongo:
+        condition: service_healthy
+    ports:
+      - "8000:8000"
+    environment:
+      MONGODB_URI: mongodb://mongo:27017
+      DB_NAME: adaptive_diagnostic
+      SEED_ON_STARTUP: "true"
+      GROQ_API_KEY: ${GROQ_API_KEY:-}
+      GROQ_MODEL: ${GROQ_MODEL:-openai/gpt-oss-120b}
+
+volumes:
+  mongo-data:
