@@ -4,6 +4,8 @@ A computerized adaptive GRE diagnostic. The engine selects each question based o
 
 The project consists of a FastAPI backend with MongoDB persistence and a React single-page application. In production, the backend serves both the API and the built frontend from one process.
 
+**Live demo:** https://adaptive-diagnostic-engine-f4wy.onrender.com (API documentation at [`/docs`](https://adaptive-diagnostic-engine-f4wy.onrender.com/docs)). It runs on Render's free tier, so the first visit after a quiet period can take about a minute while the service wakes up.
+
 ## The problem
 
 Fixed-form practice tests spend most of their questions on items that are far too easy or far too hard for the person taking them, so they reveal little about where that person actually stands. Adaptive testing addresses this by choosing the most informative question at each step. Most practice tools also report a single score without saying how certain it is, and they rarely connect the score to concrete next steps.
